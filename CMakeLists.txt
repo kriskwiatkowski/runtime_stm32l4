@@ -1,14 +1,19 @@
 cmake_minimum_required(VERSION 3.10)
 include(FetchContent)
 
-project(stm32f4_runtime LANGUAGES C ASM)
-set(MAIN_TARGET stm32f4_runtime)
+project(stm32l4_runtime LANGUAGES C ASM)
+set(MAIN_TARGET stm32l4_runtime)
 set(CMAKE_VERBOSE_MAKEFILE ON)
 set(CMAKE_C_STANDARD 99)
 set(OUTPUT ${CMAKE_BINARY_DIR}/pack)
+set(CMAKE_INSTALL_BINDIR ${OUTPUT}/bin)
 set(CMAKE_INSTALL_LIBDIR ${OUTPUT}/lib)
 set(CMAKE_INSTALL_SRCDIR ${OUTPUT}/src)
 set(CMAKE_INSTALL_INCLUDEDIR ${OUTPUT}/include/platform)
+set(LINKER_SCRIPT ${PROJECT_SOURCE_DIR}/src/stm32l4r5zi.ld)
+set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}")
+
+include(postbuild)
 
 if (CMAKE_BUILD_TYPE MATCHES "Debug")
     string(APPEND CMAKE_C_FLAGS " -O0")
@@ -26,7 +31,7 @@ FetchContent_MakeAvailable(libopencm3)
 add_library(
     ${MAIN_TARGET} STATIC
     src/init.c
-    src/rng-stm32f4.c
+    src/rng.c
     src/printf.c)
 
 target_sources(
@@ -56,11 +61,32 @@ add_custom_target(libopencm3
 
 add_dependencies(${MAIN_TARGET} libopencm3)
 
+add_executable(
+    hello
+    app/hello.c
+    src/handlers.c)
+target_include_directories(
+        hello PRIVATE ${CMAKE_BINARY_DIR}/3rd/libopencm3/include)
+target_compile_definitions(hello PRIVATE -DSTM32L4)
+target_link_libraries(
+    hello
+    ${MAIN_TARGET}
+    -L${CMAKE_BINARY_DIR}/3rd/libopencm3/lib -lopencm3_stm32l4)
+target_link_options(
+    hello PRIVATE
+    "-T${LINKER_SCRIPT}" -nostartfiles)
+target_postbuild_executable(hello ${CMAKE_INSTALL_BINDIR})
+
 install(
     TARGETS ${MAIN_TARGET}
     ARCHIVE
     PUBLIC_HEADER
     FILE_SET HEADERS)
+
+install(
+    FILES
+        ${CMAKE_CURRENT_BINARY_DIR}/hello.bin
+    DESTINATION ${CMAKE_INSTALL_BINDIR})
 
 install(
     FILES

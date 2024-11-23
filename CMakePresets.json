@@ -7,37 +7,18 @@
     },
     "configurePresets": [
         {
-            "name": "stm32f4",
-            "displayName": "ARMv7E-M",
-            "generator": "Ninja",
-            "binaryDir": "${sourceDir}/out/${presetName}",
-            "toolchainFile": "toolchains/gcc-armv7e_m-unknown-none-eabi.toolchain",
-            "cacheVariables": {
-                "CMAKE_BUILD_TYPE": "Debug",
-                "EXTRA_C_FLAGS": "-DSTM32F4"
-            }
-        },
-        {
             "name": "stm32l4",
             "displayName": "ARMv7E-M",
             "generator": "Ninja",
             "binaryDir": "${sourceDir}/out/${presetName}",
             "toolchainFile": "toolchains/gcc-armv7e_m-unknown-none-eabi.toolchain",
             "cacheVariables": {
-                "CMAKE_BUILD_TYPE": "Debug",
+                "CMAKE_BUILD_TYPE": "Release",
                 "EXTRA_C_FLAGS": "-DSTM32L4 -DSTM32L4R5ZI"
             }
         }
     ],
     "buildPresets": [
-        {
-            "name": "stm32f4",
-            "configurePreset": "stm32f4",
-            "targets": [
-                "all",
-                "install"
-            ]
-        },
         {
             "name": "stm32l4",
             "configurePreset": "stm32l4",

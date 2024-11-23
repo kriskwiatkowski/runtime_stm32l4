@@ -16,8 +16,8 @@
 
 #include <libopencm3/cm3/nvic.h>
 #include <libopencm3/cm3/scb.h>
+#include <platform/platform.h>
 #include <platform/printf.h>
-#include <platform/stm32f4.h>
 #include <stddef.h>
 
 extern volatile unsigned long long stm32_sys_tick_overflowcnt;
