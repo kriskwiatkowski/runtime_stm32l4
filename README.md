@@ -10,3 +10,11 @@ cmake --build --preset stm32l4
 ```
 
 Libraries will be compiled and placed in the ``build/pack`` directory.
+
+
+## Test program
+
+To run test program:
+```
+st-flash --reset write out/stm32l4/pack/bin/hello.bin 0x8000000
+```
