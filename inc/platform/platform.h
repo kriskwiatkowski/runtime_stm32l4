@@ -22,13 +22,13 @@ typedef enum {
     //!< Sets the clock to max possible value
     PLATFORM_CLOCK_USERSPACE
     //!< Sets the CPU clock to 24Mhz (used for benchmarking)
-} platform_attr_stm32_t;
+} platform_op_mode_t;
 
 /**
  * @brief Initializes whole STM32 platform.
  * @retval Always 0.
  */
-int platform_init(void);
+int platform_init(platform_op_mode_t a);
 
 // Structure for passign platform attributes
 struct platform_attr_t {
@@ -44,3 +44,6 @@ uint64_t platform_cpu_cyclecount(void);
 
 // Get random number from TRNG
 int platform_get_random(void *out, unsigned len);
+
+// Improves benchmark results
+void platform_sync(void);

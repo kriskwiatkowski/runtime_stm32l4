@@ -63,7 +63,7 @@ void hard_fault_handler(void) {
         ;
 }
 
-void sync(void) {
+void platform_sync(void) {
     // wait for the first systick overflow
     // improves reliability of the benchmarking scripts since it makes it much
     // less likely that the host will miss the start of the output

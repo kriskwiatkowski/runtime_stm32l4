@@ -77,7 +77,7 @@ static void systick_setup(void) {
     systick_counter_enable();
 }
 
-static void set_clock(platform_attr_stm32_t a) {
+static void set_clock(platform_op_mode_t a) {
     // Benchmark @ 20MhZ
     static const size_t speed_benchMhZ           = 20000000;
     static const unsigned flash_wait_state_bench = FLASH_ACR_LATENCY_0WS;
@@ -155,8 +155,8 @@ static volatile unsigned long long overflowcnt = 0;
 /// External API
 /// ############################
 
-int platform_init(void) {
-    set_clock(PLATFORM_CLOCK_MAX);
+int platform_init(platform_op_mode_t a) {
+    set_clock(a);
     setup_rng();
     usart_setup(115200);
     systick_setup();

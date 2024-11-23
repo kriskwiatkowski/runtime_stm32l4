@@ -17,16 +17,16 @@
 #include <stddef.h>
 #include <stdint.h>
 
-void sync(void);
-
 int main(void) {
-    platform_init();
-    printf("\n Hello world.\n");
+    platform_init(PLATFORM_CLOCK_USERSPACE);
+    platform_sync();
+    size_t i = 0;
+    struct platform_attr_t a;
 
-    sync();
     uint64_t t = platform_cpu_cyclecount();
-    printf("\n Hello world.\n");
+    i++;
     t = platform_cpu_cyclecount() - t;
     printf("\n Hello world %u %u.\n", (uint32_t)(t >> 32), (uint32_t)t);
-    return 0;
+
+    return i;
 }

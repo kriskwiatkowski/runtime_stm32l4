@@ -14,7 +14,7 @@
             "toolchainFile": "toolchains/gcc-armv7e_m-unknown-none-eabi.toolchain",
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Release",
-                "EXTRA_C_FLAGS": "-DSTM32L4 -DSTM32L4R5ZI"
+                "EXTRA_C_FLAGS": "-DSTM32L4"
             }
         }
     ],
