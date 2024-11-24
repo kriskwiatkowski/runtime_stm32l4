@@ -1,4 +1,4 @@
-# Runtime for stm32f4 platform
+# Runtime for stm32l4 platform
 
 Creates runtime environment that allows running apps on STM32L4. One needs to build the solution, link resulting static library with the application and push to the board. Solution contains implementation of `printf` that sends data over UART to the terminal.
 
