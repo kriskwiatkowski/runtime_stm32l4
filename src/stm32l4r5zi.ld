@@ -15,6 +15,12 @@ SECTIONS
   *(.rodata*)
   . = ALIGN(4);
  } >rom
+ .got :  {
+  . = ALIGN(4);
+ } >rom
+ .got.plt : {
+  . = ALIGN(4);
+ } >rom
  .preinit_array : {
   . = ALIGN(4);
   __preinit_array_start = .;
